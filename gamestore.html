@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tienda de Juegos | Fog Store</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body{
+      background:#070712;
+      color:#e8e6f1;
+    }
+    .app{
+      min-height:100vh;
+    }
+    .sidebar{
+      background:linear-gradient(180deg,#0e142c 0%, #00010c 70%);
+      border-right:1px solid rgba(255, 255, 255, 0.06);
+    }
+    .brand{
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-weight:700;
+      color:#f3f0ff;
+    }
+    .brand-badge{
+      background:rgba(243, 0, 0, 0.18);
+      border:1px solid rgba(255, 70, 70, 0.35);
+      color:#e9ddff;
+    }
+    .nav-link{
+      color:rgba(232,230,241,.78);
+      border-radius:12px;
+      padding:.55rem .75rem;
+    }
+    .nav-link:hover{
+      background:rgba(70, 89, 255, 0.12);
+      color:#fff;
+    }
+    .nav-link.active{
+      background:rgba(70, 156, 255, 0.2);
+      color:#fff;
+      border:1px solid rgba(155, 195, 255, 0.35);
+    }
+
+    .topbar{
+      background:rgba(10, 15, 32, 0.65);
+      border:1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+    }
+
+    .section-title{
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-weight:700;
+      color:#f3f0ff;
+    }
+    .section-sub{
+      color:rgba(232,230,241,.7);
+    }
+
+    .game-card{
+      background:rgba(10, 15, 32, 0.55);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      overflow:hidden;
+      transition: transform .12s ease, border-color .12s ease;
+      height:100%;
+    }
+    .game-card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(70, 135, 255, 0.4);
+    }
+
+    .img-slot{
+      height:200px;
+      background:
+        radial-gradient(1200px 250px at 30% 0%, rgba(70, 119, 255, 0.18), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:rgba(232,230,241,.65);
+      font-weight:600;
+      object-fit: contain;
+    }
+
+    .img-slot img{
+      width: 100%;
+      height: 100%;
+    }
+
+    .badge-tag{
+      background:rgba(70, 129, 255, 0.16);
+      border:1px solid rgba(70, 166, 255, 0.35);
+      color:#eadfff;
+      font-weight:600;
+    }
+    .badge-tag.alt{
+      background:rgba(0,210,255,.10);
+      border-color:rgba(0,210,255,.25);
+      color:#d9f6ff;
+    }
+    .badge-tag.warn{
+      background:rgba(255, 77, 77, 0.12);
+      border-color:rgba(255,77,109,.28);
+      color:#ffe1e8;
+    }
+
+    .btn-glow{
+      background:rgba(70, 255, 193, 0.22);
+      border:1px solid rgba(70, 255, 178, 0.45);
+      color:#fff;
+    }
+    .btn-glow:hover{
+      background:rgba(76, 255, 70, 0.568);
+      border-color:rgba(102, 207, 125, 0.6);
+      color:#fff;
+    }
+
+    .divider{
+      border-top:1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    footer{
+      color:rgba(230, 232, 241, 0.65);
+    }
+
+    @media (min-width: 992px){
+      .sidebar{
+        position:sticky;
+        top:0;
+        height:100vh;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid app">
+    <div class="row g-0">
+
+      <!-- Sidebar -->
+      <aside class="col-12 col-lg-3 col-xl-2 sidebar p-3 p-lg-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <div class="d-flex align-items-center gap-2">
+            <div class="rounded-3 border" style="width:40px;height:40px;border-color:rgba(145,70,255,.35)!important;background:rgba(145,70,255,.12);"></div>
+            <div>
+              <div class="brand">FOG STORE</div>
+              <small class="badge brand-badge rounded-pill">Games • DLC • Bundles</small>
+            </div>
+          </div>
+
+          <button class="btn btn-outline-light d-lg-none rounded-3" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#sidebarNav" aria-expanded="false" aria-controls="sidebarNav">
+            Menú
+          </button>
+        </div>
+
+        <div class="collapse d-lg-block" id="sidebarNav">
+          <nav class="d-grid gap-1 mt-2">
+            <a class="nav-link active" href="#">Inicio</a>
+            <a class="nav-link" href="#">Novedades</a>
+            <a class="nav-link" href="#">Ofertas</a>
+            <a class="nav-link" href="#terror">Terror</a>
+            <a class="nav-link" href="#accion">Acción</a>
+            <a class="nav-link" href="#asimetricos">Asimétricos</a>
+            <a class="nav-link" href="#coop">Co-op</a>
+            <a class="nav-link" href="#">Mi biblioteca</a>
+            <a class="nav-link" href="#">Soporte</a>
+          </nav>
+
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <main class="col-12 col-lg-9 col-xl-10 p-3 p-lg-4">
+        <!-- Topbar -->
+        <div class="topbar rounded-4 p-3 p-lg-4 mb-4 d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+          <div>
+            <h1 class="h4 mb-1">Tienda de Juegos</h1>
+            <div class="section-sub">Diseño oscuro inspirado en tiendas tipo Dead by Daylight. Reemplaza las imágenes cuando quieras.</div>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <button class="btn btn-glow rounded-3">Ver Ofertas</button>
+            <button class="btn btn-outline-light rounded-3">Iniciar sesión</button>
+          </div>
+        </div>
+
+        <!-- HERO / Featured -->
+        <section class="mb-5">
+          <div class="row g-3 align-items-stretch">
+            <div class="col-12 col-xl-8">
+              <div class="p-4 rounded-4 h-100" style="background:
+                radial-gradient(1000px 300px at 10% 0%, rgba(70, 218, 255, 0.22), transparent 55%),
+                radial-gradient(700px 280px at 90% 10%, rgba(77, 255, 240, 0.12), transparent 50%),
+                rgba(10, 17, 32, 0.55);
+                border:1px solid rgba(255,255,255,.08);">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                  <span class="badge badge-tag rounded-pill">DESTACADO</span>
+                  <span class="badge badge-tag alt rounded-pill">ONLINE</span>
+                  <span class="badge badge-tag warn rounded-pill">TERROR</span>
+                </div>
+                <h2 class="h3 mb-2">Título del juego destacado</h2>
+                <p class="mb-3 section-sub">Descripción corta del juego destacado. Aquí puedes promocionar un bundle, un DLC o un juego principal.</p>
+                <div class="d-flex gap-2 flex-wrap">
+                  <button class="btn btn-glow rounded-3">Comprar</button>
+                  <button class="btn btn-outline-light rounded-3">Ver detalles</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+              <div class="p-4 rounded-4 h-100" style="background:rgba(10, 15, 32, 0.55);border:1px solid rgba(255,255,255,.08);">
+                <div class="section-title mb-2">Tendencias</div>
+                <div class="d-flex flex-column gap-3">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3" style="width:54px;height:54px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);"></div>
+                    <div class="flex-grow-1">
+                      <div class="fw-semibold">Juego Popular #1</div>
+                      <small class="section-sub">Multiplayer • Online</small>
+                    </div>
+                    <span class="badge badge-tag rounded-pill">-20%</span>
+                  </div>
+
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3" style="width:54px;height:54px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);"></div>
+                    <div class="flex-grow-1">
+                      <div class="fw-semibold">Juego Popular #2</div>
+                      <small class="section-sub">Co-op • 4P</small>
+                    </div>
+                    <span class="badge badge-tag alt rounded-pill">NEW</span>
+                  </div>
+
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3" style="width:54px;height:54px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);"></div>
+                    <div class="flex-grow-1">
+                      <div class="fw-semibold">Juego Popular #3</div>
+                      <small class="section-sub">Terror • Solo</small>
+                    </div>
+                    <span class="badge badge-tag warn rounded-pill">HOT</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Terror -->
+        <section id="terror" class="mb-5">
+          <div class="d-flex align-items-end justify-content-between flex-wrap gap-2 mb-3">
+            <div>
+              <div class="section-title">Terror</div>
+              <div class="section-sub">Experiencias intensas, oscuras y tensas.</div>
+            </div>
+            <a class="btn btn-sm btn-outline-light rounded-3" href="#">Ver todo</a>
+          </div>
+
+          <div class="row g-3">
+            <!-- Card 1 -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot"><img src="/img/outlast.jpg" alt=""></div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Juego de Terror 1</h3>
+                  <p class="small section-sub mb-3">Descripción corta: una línea o dos para resumir el juego.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">Singleplayer</span>
+                    <span class="badge badge-tag warn rounded-pill">Horror</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot"><img src="/img/dbd.jpg" alt=""></div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Juego de Terror 2</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">Online</span>
+                    <span class="badge badge-tag alt rounded-pill">Co-op</span>
+                    <span class="badge badge-tag warn rounded-pill">Horror</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot"><img src="/img/slender.jpg" alt=""></div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Juego de Terror 3</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">Multiplayer</span>
+                    <span class="badge badge-tag alt rounded-pill">4 Players</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot"><img src="/img/backrooms.jpg" alt=""></div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Juego de Terror 4</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">Story</span>
+                    <span class="badge badge-tag warn rounded-pill">Thriller</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr class="divider my-5">
+
+        <!-- Section: Acción -->
+        <section id="accion" class="mb-5">
+          <div class="d-flex align-items-end justify-content-between flex-wrap gap-2 mb-3">
+            <div>
+              <div class="section-title">Acción</div>
+              <div class="section-sub">Rápido, intenso y directo al grano.</div>
+            </div>
+            <a class="btn btn-sm btn-outline-light rounded-3" href="#">Ver todo</a>
+          </div>
+
+          <div class="row g-3">
+            <!-- Duplicate cards structure -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot"><img src="/img/pubg.jpg" alt=""></div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Juego de Acción 1</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">Campaign</span>
+                    <span class="badge badge-tag rounded-pill">Controller</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot"><img src="/img/l4d2.jpg" alt=""></div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Juego de Acción 2</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">Multiplayer</span>
+                    <span class="badge badge-tag alt rounded-pill">Online</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot"><img src="/img/re6.jpg" alt=""></div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Juego de Acción 3</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">Co-op</span>
+                    <span class="badge badge-tag alt rounded-pill">2 Players</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot"><img src="/img/spiderman.jpg" alt=""></div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Juego de Acción 4</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">PvP</span>
+                    <span class="badge badge-tag alt rounded-pill">Ranked</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr class="divider my-5">
+
+        <!-- Section: Asimétricos -->
+        <section id="asimetricos" class="mb-5">
+          <div class="d-flex align-items-end justify-content-between flex-wrap gap-2 mb-3">
+            <div>
+              <div class="section-title">Asimétricos</div>
+              <div class="section-sub">1 vs 4, tensión y estrategia.</div>
+            </div>
+            <a class="btn btn-sm btn-outline-light rounded-3" href="#">Ver todo</a>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot"><img src="/img/dbd.jpg" alt=""></div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Asimétrico 1</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">Asymmetric</span>
+                    <span class="badge badge-tag alt rounded-pill">Online</span>
+                    <span class="badge badge-tag rounded-pill">Multiplayer</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot">Imagen (reemplazar)</div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Asimétrico 2</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">1v4</span>
+                    <span class="badge badge-tag alt rounded-pill">Crossplay</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot">Imagen (reemplazar)</div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Asimétrico 3</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">Co-op</span>
+                    <span class="badge badge-tag alt rounded-pill">Friends</span>
+                    <span class="badge badge-tag warn rounded-pill">Horror</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot">Imagen (reemplazar)</div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Asimétrico 4</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag rounded-pill">Competitive</span>
+                    <span class="badge badge-tag alt rounded-pill">Online</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr class="divider my-5">
+
+        <!-- Section: Co-op -->
+        <section id="coop" class="mb-5">
+          <div class="d-flex align-items-end justify-content-between flex-wrap gap-2 mb-3">
+            <div>
+              <div class="section-title">Co-op</div>
+              <div class="section-sub">Juegos para jugar con amigos.</div>
+            </div>
+            <a class="btn btn-sm btn-outline-light rounded-3" href="#">Ver todo</a>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot">Imagen (reemplazar)</div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Co-op 1</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag alt rounded-pill">Co-op</span>
+                    <span class="badge badge-tag rounded-pill">Online</span>
+                    <span class="badge badge-tag rounded-pill">4 Players</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot">Imagen (reemplazar)</div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Co-op 2</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag alt rounded-pill">Co-op</span>
+                    <span class="badge badge-tag rounded-pill">Local</span>
+                    <span class="badge badge-tag rounded-pill">Split-screen</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot">Imagen (reemplazar)</div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Co-op 3</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag alt rounded-pill">Co-op</span>
+                    <span class="badge badge-tag rounded-pill">Crossplay</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+              <div class="game-card">
+                <div class="img-slot">Imagen (reemplazar)</div>
+                <div class="p-3">
+                  <h3 class="h6 mb-2">Co-op 4</h3>
+                  <p class="small section-sub mb-3">Descripción corta del juego para la tarjeta.</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge badge-tag alt rounded-pill">Co-op</span>
+                    <span class="badge badge-tag rounded-pill">PvE</span>
+                    <span class="badge badge-tag rounded-pill">Online</span>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-glow rounded-3 flex-grow-1">Comprar</button>
+                    <button class="btn btn-sm btn-outline-light rounded-3">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-5 pt-4 divider">
+          <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-6">
+              <div class="fw-semibold">FOG STORE</div>
+              <div class="small">Catálogo demo • Reemplaza textos e imágenes a tu gusto.</div>
+            </div>
+            <div class="col-12 col-md-6 text-md-end">
+              <div class="small">© 2025 • Todos los derechos reservados</div>
+              <div class="small">
+                <a class="link-light link-underline-opacity-0 link-underline-opacity-100-hover" href="#">Términos</a>
+                <span class="mx-2">·</span>
+                <a class="link-light link-underline-opacity-0 link-underline-opacity-100-hover" href="#">Privacidad</a>
+                <span class="mx-2">·</span>
+                <a class="link-light link-underline-opacity-0 link-underline-opacity-100-hover" href="#">Contacto</a>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
